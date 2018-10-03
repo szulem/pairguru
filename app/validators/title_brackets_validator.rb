@@ -25,9 +25,6 @@ class TitleBracketsValidator < ActiveModel::Validator
       end
     end
 
-    # record.errors.add(:title, "Invalid title") if stack.length.odd?
-    # return true if stack.empty?
-
     # if there are still left brackets
     if stack.length > 0
       is_invalid(record)
