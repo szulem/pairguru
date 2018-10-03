@@ -3,5 +3,5 @@ class Comment < ApplicationRecord
   belongs_to :movie
 
   validates :description, presence: true, length: { minimum: 3 }
-  validates_uniqueness_of :user_id
+  validates :user_id, uniqueness: { scope: :movie_id }
 end
