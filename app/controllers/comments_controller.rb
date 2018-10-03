@@ -17,7 +17,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to movie_path(@movie), notice: "Your comment was successfully created!"
     else
-      render 'new'
+      redirect_to movie_path(@movie), notice: "Your comment has not been created!"
     end
   end
 
