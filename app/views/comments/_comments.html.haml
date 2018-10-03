@@ -1,2 +1,19 @@
-- @comments.each_with_index do |comment, index|
-  %p= "#{index + 1}) #{comment.description}"
+%table.table
+  %thead
+    %tr
+      %th #
+      %th Author
+      %th Content
+      - if user_signed_in?
+        %th Actions
+  %tbody
+    - @comments.each_with_index do |comment, index|
+      %tr
+        %td= index + 1
+        %td= comment.user.email
+        %td= comment.description
+        - if user_signed_in? && comment.user_id == current_user.id
+          %td
+            = link_to 'Delete', movie_comment_path(@movie, comment), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger btn-xs'
+        - else
+          %td
