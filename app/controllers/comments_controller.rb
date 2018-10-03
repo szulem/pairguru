@@ -1,25 +1,21 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
-  
-  def index
-    @comments = Comment.all
-  end
+  before_action :find_movie
+  before_action :find_comment, only: [:edit, :destroy]
 
-  def show
-    @comment = Comment.find(params[:id])
-  end
+  # def index
+  #   @comments = Comment.all
+  # end
 
-  def new
-    @comment = Comment.new
-  end
-
-  def edit
-  end
+  # def edit
+  # end
 
   def create
-    @comment = Comment.new(comment_params)
+    # @comment = Comment.new(comment_params)
+    @comment = @movie.comments.new(comment_params)
+    @comment.user_id = current_user.id
+
     if @comment.save
-      redirect_to @comment, notice: "Your comment was successfully created!"
+      redirect_to movie_path(@movie), notice: "Your comment was successfully created!"
     else
       render 'new'
     end
@@ -41,10 +37,14 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:description, :user_id, :movie_id)
+    params.require(:comment).permit(:description, :movie_id, :user_id)
   end
 
-  def set_comment
+  def find_comment
     @comment = Comment.find(params[:id])
+  end
+
+  def find_movie
+    @movie = Movie.find(params[:movie_id])
   end
 end
