@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get "movies"
     end
   end
+
   resources :movies, only: [:index, :show] do
     member do
       get :send_info
@@ -14,5 +15,7 @@ Rails.application.routes.draw do
     collection do
       get :export
     end
+    resources :comments
   end
+
 end

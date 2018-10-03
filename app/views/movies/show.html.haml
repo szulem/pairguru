@@ -3,3 +3,14 @@
   = @movie.description
 - if user_signed_in?
   %p= link_to 'Email me details about this movie', send_info_movie_path(@movie), class: 'btn btn-sm btn-default'
+
+- if @movie.comments.any?
+  %br
+  = render 'comments/comments'
+
+
+- if user_signed_in?
+  = render "comments/form"
+- else
+  %br
+  %p You have to be registered user to comment movies.
