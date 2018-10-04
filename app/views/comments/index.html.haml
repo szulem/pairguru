@@ -1,2 +1,14 @@
-%h1 Comments#index
-%p Find me in app/views/comments/index.html.haml
+%h3 Top 10 commentators
+
+%table.table
+  %thead
+    %tr
+      %th #
+      %th Author
+      %th Comments
+  %tbody
+    - @users.each_with_index do |user, index|
+      %tr
+        %td= index + 1
+        %td= user.name
+        %td= user.count_of_comments

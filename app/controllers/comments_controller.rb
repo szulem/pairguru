@@ -1,13 +1,11 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   before_action :find_movie, only: [:create, :destroy]
 
-  # def index
-  #   @comments = Comment.all
-  # end
-
-  # def edit
-  # end
+  def index
+    @users = User.order('count_of_comments DESC').limit(10)
+    # @comments = Comment.where("created_at >= ?", 1.week.ago.utc).limit(10)
+  end
 
   def create
     # @comment = Comment.new(comment_params)
@@ -23,18 +21,10 @@ class CommentsController < ApplicationController
     end
   end
 
-  # def update
-  #   if @comment.update(comment_params)
-  #     redirect_to @comment, notice: "Your comment was successfully updated!"
-  #   else
-  #     render 'edit'
-  #   end
-  # end
-
   def destroy
     @comment = @movie.comments.find(params[:id])
     if @comment.destroy
-      flash[:success] = "Your comment was successfully deleted!"
+      flash[:notice] = "Your comment was successfully deleted!"
       redirect_to movie_path(@movie)
     else
       flash[:danger] = "Your comment has not been deleted!"
