@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   before_action :find_movie, only: [:create, :destroy]
 
   def index
-    @users = User.order('count_of_comments DESC').limit(10)
+    @users = User.order("count_of_comments DESC").limit(10)
     # @comments = Comment.where("created_at >= ?", 1.week.ago.utc).limit(10)
   end
 

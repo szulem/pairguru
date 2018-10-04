@@ -1,11 +1,10 @@
 class TitleBracketsValidator < ActiveModel::Validator
-  
   def validate(record)
-    stack  = []
-    brackets = { 
-      '(' => ')',
-      '[' => ']',
-      '{' => '}'
+    stack = []
+    brackets = {
+      "(" => ")",
+      "[" => "]",
+      "{" => "}"
     }
     left_brackets   = brackets.keys
     right_brackets  = brackets.values
@@ -26,7 +25,7 @@ class TitleBracketsValidator < ActiveModel::Validator
     end
 
     # if there are still left brackets
-    if stack.length > 0
+    if !stack.empty?
       is_invalid(record)
     # if no brackets left
     elsif stack.empty?
@@ -37,5 +36,4 @@ class TitleBracketsValidator < ActiveModel::Validator
   def is_invalid(record)
     record.errors.add(:title, "Invalid title")
   end
-
 end

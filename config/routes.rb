@@ -3,8 +3,8 @@ Rails.application.routes.draw do
 
   root "home#welcome"
 
-  get 'top10', to: 'comments#index'
-  
+  get "top10", to: "comments#index"
+
   resources :genres, only: :index do
     member do
       get "movies"
@@ -20,5 +20,4 @@ Rails.application.routes.draw do
     end
     resources :comments
   end
-
 end
